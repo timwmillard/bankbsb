@@ -5,6 +5,7 @@
 PG_MODULE_MAGIC;
 
 #define MAX_BANK_BSB 999999
+#define INVALID_BANK_BSB 0xffffffff
 
 typedef uint32_t BankBSB;
 
@@ -46,11 +47,11 @@ static BankBSB parse_bank_bsb(char *bsb) {
         raw[4] = bsb[3];
         raw[5] = bsb[4];
     } else {
-        return 0;
+        return INVALID_BANK_BSB;
     }
     int num = atoi(raw);
-    if (num < 1 || num > MAX_BANK_BSB) {
-         return 0;
+    if (num < 0 || num > MAX_BANK_BSB) {
+         return INVALID_BANK_BSB;
     }
     return num;
 }
@@ -74,6 +75,15 @@ bankbsb_in(PG_FUNCTION_ARGS)
 {
     char *arg = PG_GETARG_CSTRING(0);
     BankBSB bsb = parse_bank_bsb(arg);
+    if (bsb == INVALID_BANK_BSB)
+            ereport(ERROR,
+            (
+             errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+             errmsg("invalid bsb number"),
+             errdetail("value %s not a valid bsb number", arg),
+             errhint("valid format should be '123-456'")
+            )
+        );
     PG_RETURN_INT32(bsb);
 }
 
