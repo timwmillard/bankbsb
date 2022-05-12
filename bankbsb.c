@@ -13,11 +13,11 @@ typedef uint32_t BankBSB;
 //
 // Valid formats:
 //
-// 		nnn-nnn		example "123-456" will be 123-456
+//      nnn-nnn		example "123-456" will be 123-456
 //
-// 		nnnnnn 		will convert to nnn-nnn, example "123456" will be 123-456
+//      nnnnnn 		will convert to nnn-nnn, example "123456" will be 123-456
 //
-//		nnnnn 		will convert to 0nn-nnn, example "12345" will be 012-345
+//      nnnnn 		will convert to 0nn-nnn, example "12345" will be 012-345
 //
 // 	Where n is an ascii digit
 //
@@ -25,32 +25,32 @@ static BankBSB parse_bank_bsb(char *bsb) {
     char raw[6];
     size_t len = strlen(bsb);
     if (len == 7 && bsb[3] == '-' ) {
-		raw[0] = bsb[0];
-		raw[1] = bsb[1];
-		raw[2] = bsb[2];
-		raw[3] = bsb[4];
-		raw[4] = bsb[5];
-		raw[5] = bsb[6];
-	} else if (len == 6) {
-		raw[0] = bsb[0];
-		raw[1] = bsb[1];
-		raw[2] = bsb[2];
-		raw[3] = bsb[3];
-		raw[4] = bsb[4];
-		raw[5] = bsb[5];
-	} else if (len == 5) {
-		raw[0] = '0';
-		raw[1] = bsb[0];
-		raw[2] = bsb[1];
-		raw[3] = bsb[2];
-		raw[4] = bsb[3];
-		raw[5] = bsb[4];
-	} else {
-		return 0;
-	}
+        raw[0] = bsb[0];
+        raw[1] = bsb[1];
+        raw[2] = bsb[2];
+        raw[3] = bsb[4];
+        raw[4] = bsb[5];
+        raw[5] = bsb[6];
+    } else if (len == 6) {
+        raw[0] = bsb[0];
+        raw[1] = bsb[1];
+        raw[2] = bsb[2];
+        raw[3] = bsb[3];
+        raw[4] = bsb[4];
+        raw[5] = bsb[5];
+    } else if (len == 5) {
+        raw[0] = '0';
+        raw[1] = bsb[0];
+        raw[2] = bsb[1];
+        raw[3] = bsb[2];
+        raw[4] = bsb[3];
+        raw[5] = bsb[4];
+    } else {
+        return 0;
+    }
     int num = atoi(raw);
     if (num < 1 || num > MAX_BANK_BSB) {
-        return 0;
+         return 0;
     }
     return num;
 }
@@ -62,7 +62,7 @@ static BankBSB parse_bank_bsb(char *bsb) {
 static char *bank_bsb_string(BankBSB bsb) {
     char *str = palloc(7 * sizeof(char) + 1);
     int bank = bsb / 1000;
-	int branch = bsb % 1000;
+    int branch = bsb % 1000;
     sprintf(str, "%03d-%03d", bank, branch);
     return str;
 }
