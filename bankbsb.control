@@ -1,0 +1,4 @@
+# bankbsb extension
+comment = 'bank bsb datatype'
+default_version = '0.0.1'
+relocatable = true
