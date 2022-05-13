@@ -80,7 +80,7 @@ bankbsb_in(PG_FUNCTION_ARGS)
     char *arg = PG_GETARG_CSTRING(0);
     BankBSB bsb = parse_bank_bsb(arg);
     if (bsb == INVALID_BANK_BSB)
-            ereport(ERROR,
+        ereport(ERROR,
             (
              errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
              errmsg("invalid bsb number"),
