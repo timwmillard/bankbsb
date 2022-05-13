@@ -2,7 +2,7 @@
 
 A PostgreSQL Extension to add an Australian banking BSB number type.
 
-## Installation
+## Install
 
 To build and install this module:
 
