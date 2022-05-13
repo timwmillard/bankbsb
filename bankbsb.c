@@ -85,37 +85,94 @@ bankbsb_in(PG_FUNCTION_ARGS)
              errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
              errmsg("invalid bsb number"),
              errdetail("%s not a valid bsb number", arg),
-             errhint("format should be '999-999'")
+             errhint("format should be '999-999' or '999999'")
             )
         );
-    PG_RETURN_INT32(bsb);
+    PG_RETURN_UINT32(bsb);
 }
 
 PG_FUNCTION_INFO_V1(bankbsb_out);
 Datum
 bankbsb_out(PG_FUNCTION_ARGS)
 {
-    BankBSB arg = PG_GETARG_INT32(0);
-    if (arg < 0)
-        ereport(ERROR,
-            (
-             errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
-             errmsg("negative values are not allowed"),
-             errdetail("value %d is negative", arg),
-             errhint("make it positive")
-            )
-        );
-
+    BankBSB arg = PG_GETARG_UINT32(0);
     char *bsb = bank_bsb_string(arg);
     PG_RETURN_CSTRING(bsb);
 }
 
+// bankbsb_lt
+PG_FUNCTION_INFO_V1(bankbsb_lt);
+Datum
+bankbsb_lt(PG_FUNCTION_ARGS)
+{
+    BankBSB left = PG_GETARG_INT32(0);
+    BankBSB right = PG_GETARG_INT32(1);
+
+    PG_RETURN_BOOL(left < right);
+}
+
+// bankbsb_le
+PG_FUNCTION_INFO_V1(bankbsb_le);
+Datum
+bankbsb_le(PG_FUNCTION_ARGS)
+{
+    BankBSB left = PG_GETARG_INT32(0);
+    BankBSB right = PG_GETARG_INT32(1);
+
+    PG_RETURN_BOOL(left <= right);
+}
+
+// bankbsb_eq
 PG_FUNCTION_INFO_V1(bankbsb_eq);
 Datum
 bankbsb_eq(PG_FUNCTION_ARGS)
 {
-    BankBSB right = PG_GETARG_INT32(0);
-    BankBSB left = PG_GETARG_INT32(1);
+    BankBSB left = PG_GETARG_INT32(0);
+    BankBSB right = PG_GETARG_INT32(1);
 
-    PG_RETURN_BOOL(right == left);
+    PG_RETURN_BOOL(left == right);
+}
+
+// bankbsb_ne
+PG_FUNCTION_INFO_V1(bankbsb_ne);
+Datum
+bankbsb_ne(PG_FUNCTION_ARGS)
+{
+    BankBSB left = PG_GETARG_INT32(0);
+    BankBSB right = PG_GETARG_INT32(1);
+
+    PG_RETURN_BOOL(left != right);
+}
+
+// bankbsb_ge
+PG_FUNCTION_INFO_V1(bankbsb_ge);
+Datum
+bankbsb_ge(PG_FUNCTION_ARGS)
+{
+    BankBSB left = PG_GETARG_INT32(0);
+    BankBSB right = PG_GETARG_INT32(1);
+
+    PG_RETURN_BOOL(left >= right);
+}
+
+// bankbsb_gt
+PG_FUNCTION_INFO_V1(bankbsb_gt);
+Datum
+bankbsb_gt(PG_FUNCTION_ARGS)
+{
+    BankBSB left = PG_GETARG_INT32(0);
+    BankBSB right = PG_GETARG_INT32(1);
+
+    PG_RETURN_BOOL(left > right);
+}
+
+// bankbsb_cmp
+PG_FUNCTION_INFO_V1(bankbsb_cmp);
+Datum
+bankbsb_cmp(PG_FUNCTION_ARGS)
+{
+    BankBSB left = PG_GETARG_INT32(0);
+    BankBSB right = PG_GETARG_INT32(1);
+
+    PG_RETURN_INT32(left - right);
 }
