@@ -22,7 +22,9 @@ typedef uint32_t BankBSB;
 //
 // 	Where n is an ascii digit
 //
-static BankBSB parse_bank_bsb(char *bsb) {
+static BankBSB
+parse_bank_bsb(char *bsb)
+{
     char raw[6];
     size_t len = strlen(bsb);
     if (len == 7 && bsb[3] == '-' ) {
@@ -60,7 +62,9 @@ static BankBSB parse_bank_bsb(char *bsb) {
 // where n is a digit.
 // Example:
 // 		"123-456"
-static char *bank_bsb_string(BankBSB bsb) {
+static char *
+bank_bsb_string(BankBSB bsb)
+{
     char *str = palloc(7 * sizeof(char) + 1);
     int bank = bsb / 1000;
     int branch = bsb % 1000;
