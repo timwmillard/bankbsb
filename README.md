@@ -38,7 +38,8 @@ INSERT INTO account VALUES (1, '123-456');
 ```
 
 Valid BSB formats:
-- `nnn-nnn`		example "123-456" will be 123-456
-- `nnnnnn` 		will convert to nnn-nnn, example "123456" will be 123-456
-- `nnnnn` 		will convert to 0nn-nnn, example "12345" will be 012-345
+- `nnn-nnn`		example `123-456` will be `123-456`
+- `nnnnnn` 		will convert to `nnn-nnn`, example `123456` will be `123-456`
+- `nnnnn` 		will convert to `0nn-nnn`, example `12345` will be `012-345`
+
 Where n is an ascii digit
