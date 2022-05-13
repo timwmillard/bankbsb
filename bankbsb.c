@@ -84,8 +84,8 @@ bankbsb_in(PG_FUNCTION_ARGS)
             (
              errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
              errmsg("invalid bsb number"),
-             errdetail("value %s not a valid bsb number", arg),
-             errhint("valid format should be '123-456'")
+             errdetail("%s not a valid bsb number", arg),
+             errhint("format should be '999-999'")
             )
         );
     PG_RETURN_INT32(bsb);
@@ -108,4 +108,14 @@ bankbsb_out(PG_FUNCTION_ARGS)
 
     char *bsb = bank_bsb_string(arg);
     PG_RETURN_CSTRING(bsb);
+}
+
+PG_FUNCTION_INFO_V1(bankbsb_eq);
+Datum
+bankbsb_eq(PG_FUNCTION_ARGS)
+{
+    BankBSB right = PG_GETARG_INT32(0);
+    BankBSB left = PG_GETARG_INT32(1);
+
+    PG_RETURN_BOOL(right == left);
 }

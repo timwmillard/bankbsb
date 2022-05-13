@@ -11,6 +11,12 @@ RETURNS cstring
 AS '$libdir/bankbsb'
 LANGUAGE C IMMUTABLE STRICT;
 
+CREATE FUNCTION bankbsb_eq(bsb, bsb)
+RETURNS boolean
+AS '$libdir/bankbsb'
+LANGUAGE C IMMUTABLE STRICT;
+
+
 CREATE TYPE bsb (
   INPUT          = bankbsb_in,
   OUTPUT         = bankbsb_out,
@@ -19,4 +25,16 @@ CREATE TYPE bsb (
   ALIGNMENT      = int4,  -- align to 4 bytes
   STORAGE        = PLAIN, -- always store data inline uncompressed (not toasted)
   PASSEDBYVALUE           -- pass data by value rather than by reference
+);
+
+CREATE OPERATOR = (
+    LEFTARG = bsb,
+    RIGHTARG = bsb,
+    COMMUTATOR = =,
+    -- NEGATOR = <>,
+    -- RESTRICT = eqsel,
+    -- JOIN = eqjoinsel,
+    -- HASHES,
+    -- MERGES,
+    PROCEDURE = bankbsb_eq
 );
