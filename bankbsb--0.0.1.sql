@@ -129,3 +129,36 @@ CREATE OPERATOR CLASS bankbsb_ops
         OPERATOR        4       >= ,
         OPERATOR        5       > ,
         FUNCTION        1       bankbsb_cmp(bsb, bsb);
+
+
+CREATE SCHEMA IF NOT EXISTS ausbank;
+
+CREATE TABLE ausbank.institution (
+    id serial PRIMARY KEY,
+    code varchar(3) NOT NULL,
+    name text NOT NULL,
+    bsb_numbers varchar(3)[]
+);
+
+CREATE TABLE ausbank.branch (
+    id serial PRIMARY KEY,
+    code bsb NOT NULL,
+    name text NOT NULL DEFAULT '',
+    institution_code varchar(3) NOT NULL DEFAULT '',
+    insitiution_id int REFERENCES ausbank.institution(id)
+    address text NOT NULL DEFAULT '',
+    suburb text NOT NULL DEFAULT '',
+    state text NOT NULL DEFAULT '',
+    postcode varchar(4) NOT NULL DEFAULT ''
+);
+
+CREATE OR REPLACE FUNCTION bsblookup(b bsb) RETURNS text
+AS
+$$
+    SELECT name
+    FROM ausbank.branch
+    WHERE code = b;
+
+    RETURN 1;
+$$
+LANGUAGE 'plpgsql';
