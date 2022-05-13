@@ -1,6 +1,6 @@
-# `bsb` type for Postgres
+# `bsb` type for PostgreSQL
 
-A Postgres Extension to add an Australian BSB number type.
+A PostgreSQL Extension to add an Australian banking BSB number type.
 
 ## Installation
 
@@ -17,7 +17,8 @@ or selecting a specific PostgreSQL installation:
 make PG_CONFIG=/some/where/bin/pg_config
 make PG_CONFIG=/some/where/bin/pg_config install
 ```
-And finally inside the database:
+
+And finally create the extention inside the database:
 
 ```sql
 CREATE EXTENSION bankbsb;
