@@ -1,0 +1,73 @@
+CREATE EXTENSION bankbsb;
+SELECT '123-456'::bsb;
+   bsb   
+---------
+ 123-456
+(1 row)
+
+SELECT '123456'::bsb;
+   bsb   
+---------
+ 123-456
+(1 row)
+
+SELECT '000-000'::bsb;
+   bsb   
+---------
+ 000-000
+(1 row)
+
+SELECT '123-456'::bsb = '123456'::bsb;
+ ?column? 
+----------
+ t
+(1 row)
+
+SELECT '000001'::bsb < '000002'::bsb;
+ ?column? 
+----------
+ t
+(1 row)
+
+SELECT '000002'::bsb > '000001'::bsb;
+ ?column? 
+----------
+ t
+(1 row)
+
+SELECT '000002'::bsb >= '000002'::bsb;
+ ?column? 
+----------
+ t
+(1 row)
+
+SELECT '000002'::bsb <= '000002'::bsb;
+ ?column? 
+----------
+ t
+(1 row)
+
+SELECT '000002'::bsb <> '000003'::bsb;
+ ?column? 
+----------
+ t
+(1 row)
+
+SELECT '9999999'::bsb;
+ERROR:  invalid bsb number
+LINE 1: SELECT '9999999'::bsb;
+               ^
+DETAIL:  9999999 not a valid bsb number
+HINT:  format should be '999-999' or '999999'
+SELECT ''::bsb;
+ERROR:  invalid bsb number
+LINE 1: SELECT ''::bsb;
+               ^
+DETAIL:   not a valid bsb number
+HINT:  format should be '999-999' or '999999'
+SELECT 'abc'::bsb;
+ERROR:  invalid bsb number
+LINE 1: SELECT 'abc'::bsb;
+               ^
+DETAIL:  abc not a valid bsb number
+HINT:  format should be '999-999' or '999999'
