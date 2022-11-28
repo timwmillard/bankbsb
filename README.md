@@ -18,7 +18,7 @@ make PG_CONFIG=/some/where/bin/pg_config
 make PG_CONFIG=/some/where/bin/pg_config install
 ```
 
-And finally create the extention inside the database:
+And finally create the extension inside the database:
 
 ```sql
 CREATE EXTENSION bankbsb;
@@ -43,3 +43,21 @@ Valid BSB formats:
 - `nnnnn` 		will convert to `0nn-nnn`, example `12345` will be `012-345`
 
 Where n is an ascii digit
+
+---
+
+## Testing
+
+Install the extension
+
+```sh
+make
+make install
+```
+
+Run the regression test
+```sh
+make installcheck
+```
+
+If the test fails, the result output will be in `results/bankbsb_test.out`.  You can then diff the different output.
