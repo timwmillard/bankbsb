@@ -3,6 +3,7 @@ CREATE EXTENSION bankbsb;
 SELECT '123-456'::bsb;
 SELECT '123456'::bsb;
 SELECT '000-000'::bsb;
+SELECT '999-999'::bsb;
 SELECT '123-456'::bsb = '123456'::bsb;
 SELECT '000001'::bsb < '000002'::bsb;
 SELECT '000002'::bsb > '000001'::bsb;
