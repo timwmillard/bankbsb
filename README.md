@@ -42,7 +42,7 @@ Valid BSB formats:
 - `nnnnnn` 		will convert to `nnn-nnn`, example `123456` will be `123-456`
 - `nnnnn` 		will convert to `0nn-nnn`, example `12345` will be `012-345`
 
-Where n is an ascii digit
+Where n is an ASCII digit
 
 ---
 
