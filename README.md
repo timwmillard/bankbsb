@@ -60,4 +60,4 @@ Run the regression test
 make installcheck
 ```
 
-If the test fails, the result output will be in `results/bankbsb_test.out`.  You can then diff the different output.
+If the test fails, the result output will be in `results/bankbsb_test.out`.  You can then diff this with `expected/bankbsb_test.out`.
