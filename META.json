@@ -1,0 +1,41 @@
+{
+    "name": "bankbsb",
+    "abstract": "An Australia Bank BSB data type",
+    "description": "A PostgreSQL Extension to add an Australian banking BSB number type.",
+    "version": "0.0.1",
+    "maintainer": [
+       "Tim Millard <timwmillard@gmail.com>"
+    ],
+    "license": "mit",
+    "provides": {
+       "bankbsb": {
+          "abstract": "An Australia Bank BSB data type",
+          "file": "sql/bankbsb.sql",
+          "docfile": "README.md",
+          "version": "0.0.1"
+       }
+    },
+    "resources": {
+       "bugtracker": {
+          "web": "https://github.com/timwmillard/bankbsb/issues"
+       },
+       "repository": {
+       "url":  "https://github.com/timwmillard/bankbsb.git",
+       "web":  "https://github.com/timwmillard/bankbsb",
+       "type": "git"
+       }
+    },
+    "generated_by": "Tim Millard",
+    "meta-spec": {
+       "version": "1.0.0",
+       "url": "https://pgxn.org/meta/spec.txt"
+    },
+    "tags": [
+       "banking",
+       "bsb",
+       "australia bsb",
+       "australia banking",
+       "bank bsb",
+       "data type"
+    ]
+ }

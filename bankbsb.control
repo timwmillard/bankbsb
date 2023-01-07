@@ -1,4 +1,5 @@
 # bankbsb extension
 comment = 'bank bsb datatype'
 default_version = '0.0.1'
+module_pathname = '$libdir/bankbsb'
 relocatable = true
