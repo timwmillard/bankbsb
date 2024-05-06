@@ -5,9 +5,9 @@
 PG_MODULE_MAGIC;
 
 #define MAX_BANK_BSB 999999
-#define INVALID_BANK_BSB 0xffffffff
+#define INVALID_BANK_BSB -1
 
-typedef uint32_t BankBSB;
+typedef int32_t BankBSB;
 
 // parse_bank_bsb parses a string of the BSB number and returns a valid BSB type.
 // If the string is not a valid BSB number an error is returned.
@@ -25,6 +25,7 @@ typedef uint32_t BankBSB;
 static BankBSB
 parse_bank_bsb(char *bsb)
 {
+    int num;
     char raw[6];
     size_t len = strlen(bsb);
     if (len == 7 && bsb[3] == '-' ) {
@@ -51,7 +52,7 @@ parse_bank_bsb(char *bsb)
     } else {
         return INVALID_BANK_BSB;
     }
-    int num = atoi(raw);
+    num = atoi(raw);
     if (num < 0 || num > MAX_BANK_BSB) {
          return INVALID_BANK_BSB;
     }
@@ -65,7 +66,7 @@ parse_bank_bsb(char *bsb)
 static char *
 bank_bsb_string(BankBSB bsb)
 {
-    char *str = palloc(7 * sizeof(char) + 1);
+    char *str = palloc(7 * sizeof(char) + sizeof(char));
     int bank = bsb / 1000;
     int branch = bsb % 1000;
     sprintf(str, "%03d-%03d", bank, branch);
@@ -88,14 +89,14 @@ bankbsb_in(PG_FUNCTION_ARGS)
              errhint("format should be '999-999' or '999999'")
             )
         );
-    PG_RETURN_UINT32(bsb);
+    PG_RETURN_INT32(bsb);
 }
 
 PG_FUNCTION_INFO_V1(bankbsb_out);
 Datum
 bankbsb_out(PG_FUNCTION_ARGS)
 {
-    BankBSB arg = PG_GETARG_UINT32(0);
+    BankBSB arg = PG_GETARG_INT32(0);
     char *bsb = bank_bsb_string(arg);
     PG_RETURN_CSTRING(bsb);
 }
